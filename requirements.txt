@@ -1,5 +1,7 @@
+--extra-index-url https://download.pytorch.org/whl/cpu
 streamlit
-torch --index-url https://download.pytorch.org/whl/cpu
-torchaudio --index-url https://download.pytorch.org/whl/cpu
+torch
+torchaudio
+torchvision
 transformers
 numpy
