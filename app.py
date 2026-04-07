@@ -1,6 +1,7 @@
 import os
 import tempfile
 import streamlit as st
+import librosa
 import torch
 import torch.nn.functional as F
 import torchaudio
@@ -58,8 +59,11 @@ if uploaded_audio is not None:
                 tmp_path = tmp_file.name
                 
             # Reading the file using torchaudio from Streamlit uploaded file buffer
-            wave, sr = torchaudio.load(tmp_path)
+            audio_array, sr = librosa.load(tmp_path, sr=SR, mono=True)
             os.remove(tmp_path)
+            
+            # Convert straight to PyTorch tensor and add the channel dimension (1, Time)
+            wave = torch.from_numpy(audio_array).unsqueeze(0)
             
             if sr != SR:
                 wave = T.Resample(sr, SR)(wave)
