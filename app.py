@@ -45,14 +45,14 @@ def load_model_and_extractor():
 model, ast_extractor =load_model_and_extractor()
 
 # Streamlit Application Frontend
-st.title("Music Genre Classifier using AST")
-st.write("Upload an audio file to predict its genre. ")
-uploaded_audio = st.file_uploader("Supported formats - wav, mp3, m4a)", type=["wav", "mp3", "m4a"])
+st.title("Music Genre Classifier")
+st.write("Upload an audio file to predict its genre!")
+uploaded_audio = st.file_uploader("Supported audio formats - wav, mp3, m4a", type=["wav", "mp3", "m4a"])
 
 if uploaded_audio is not None:
     st.audio(uploaded_audio, format='audio/wav')
     
-    with st.spinner('Predicting the genre...'):
+    with st.spinner('Predicting the genre using AST...'):
         try:
             file_extension = uploaded_audio.name.split('.')[-1].lower()
             with tempfile.NamedTemporaryFile(delete=False, suffix=f'.{file_extension}') as tmp_file:
@@ -121,12 +121,12 @@ if uploaded_audio is not None:
             predicted_genre = GENRES[predicted_class_idx]
             confidence = probabilities[0][predicted_class_idx].item() * 100
 
-            st.success(f"Predicted Genre: {predicted_genre} ({confidence:.2f}% confidence)")
+            st.success(f"Predicted Genre: {predicted_genre.upper()} ({confidence:.2f}% confidence)")
             
             st.write("Genre Confidence Breakdown")
             
             # Create a dictionary mapping the genres to their percentages
-            chart_data = {genre: prob.item() * 100 for genre, prob in zip(GENRES, probabilities[0])}
+            chart_data = {genre.upper(): prob.item() * 100 for genre, prob in zip(GENRES, probabilities[0])}
             
             # Display the interactive Streamlit Bar Chart
             st.bar_chart(chart_data)
