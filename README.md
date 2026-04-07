@@ -5,6 +5,6 @@
 **Student ID:** 21f2000660
 
 ## Folder Structure
-- `/scripts` — Core Python scripts and automation tools.
+- `app.py` — Python script for Stramlit deployment.
 - `/notebooks` — Colab notebooks for exploration and prototyping.
-- `/data` — Raw and processed datasets.
+- `/models` — Best saved AST model.
