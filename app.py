@@ -46,15 +46,16 @@ model, ast_extractor =load_model_and_extractor()
 
 # Streamlit Application Frontend
 st.title("Music Genre Classifier using AST")
-st.write("Upload a .wav file to predict its genre")
-uploaded_audio = st.file_uploader("Upload an audio file...", type=["wav"])
+st.write("Upload an audio file to predict its genre. ")
+uploaded_audio = st.file_uploader("Supported formats - wav, mp3, m4a)", type=["wav", "mp3", "m4a"])
 
 if uploaded_audio is not None:
     st.audio(uploaded_audio, format='audio/wav')
     
     with st.spinner('Predicting the genre...'):
         try:
-            with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as tmp_file:
+            file_extension = uploaded_audio.name.split('.')[-1].lower()
+            with tempfile.NamedTemporaryFile(delete=False, suffix=f'.{file_extension}') as tmp_file:
                 tmp_file.write(uploaded_audio.getvalue())
                 tmp_path = tmp_file.name
                 
