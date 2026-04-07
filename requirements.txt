@@ -5,3 +5,4 @@ torchaudio
 torchvision
 transformers
 numpy
+soundfile
