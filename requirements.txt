@@ -3,6 +3,7 @@ streamlit
 torch
 torchaudio
 torchvision
+torchcodec
 transformers
 numpy
 soundfile
