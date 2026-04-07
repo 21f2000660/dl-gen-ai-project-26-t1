@@ -38,7 +38,9 @@ def load_model_and_extractor():
     model.load_state_dict(state_dict)
     model.eval()
    
-    return model, extractor
+    return model, ast_extractor
+    
+model, ast_extractor =load_model_and_extractor()
 
 # Streamlit Application Frontend
 st.title("Music Genre Classifier using AST")
