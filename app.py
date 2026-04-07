@@ -58,7 +58,7 @@ if uploaded_audio is not None:
                 tmp_path = tmp_file.name
                 
             # Reading the file using torchaudio from Streamlit uploaded file buffer
-            wave, sr = torchaudio.load(tmp_path)
+            wave, sr = torchaudio.load(tmp_path, backend="soundfile")
             os.remove(tmp_path)
             
             if sr != SR:
