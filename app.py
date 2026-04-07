@@ -122,5 +122,13 @@ if uploaded_audio is not None:
 
             st.success(f"Predicted Genre: {predicted_genre} ({confidence:.2f}% confidence)")
             
+            st.write("Genre Confidence Breakdown")
+            
+            # Create a dictionary mapping the genres to their percentages
+            chart_data = {genre: prob.item() * 100 for genre, prob in zip(GENRES, probabilities[0])}
+            
+            # Display the interactive Streamlit Bar Chart
+            st.bar_chart(chart_data)
+            
         except Exception as e:
             st.error(f"An internal error occurred: {e}")
