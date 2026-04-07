@@ -1,4 +1,5 @@
 import os
+import tempfile
 import streamlit as st
 import torch
 import torch.nn.functional as F
@@ -52,8 +53,12 @@ if uploaded_audio is not None:
     
     with st.spinner('Predicting the genre...'):
         try:
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.wav') as tmp_file:
+                tmp_file.write(uploaded_audio.getvalue())
+                tmp_path = tmp_file.name
+                
             # Reading the file using torchaudio from Streamlit uploaded file buffer
-            wave, sr = torchaudio.load(uploaded_audio)
+            wave, sr = torchaudio.load(tmp_path)
             
             if sr != SR:
                 wave = T.Resample(sr, SR)(wave)
