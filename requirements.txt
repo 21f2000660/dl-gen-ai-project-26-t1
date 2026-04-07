@@ -6,4 +6,5 @@ torchvision
 torchcodec
 transformers
 numpy
+librosa
 soundfile
