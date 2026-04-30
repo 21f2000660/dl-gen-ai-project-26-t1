@@ -8,11 +8,14 @@ import torchaudio
 import torchaudio
 import torchaudio.transforms as T
 from transformers import ASTForAudioClassification, AutoFeatureExtractor
+from huggingface_hub import hf_hub_download
 
 # This finds the folder where app.py lives and joins it with the model path
 base_path=os.path.dirname(__file__)
-best_weights=os.path.join(base_path, "models", "best_ast_model.pth")
+# best_weights=os.path.join(base_path, "models", "best_ast_model.pth")
 AST_VER="MIT/ast-finetuned-audioset-10-10-0.4593"
+HF_REPO_ID = "gokulvasudevans/dl-gen-ai-project-26-t1-ast"
+FILENAME = "best_ast_model.pth"
 GENRES= ['blues', 'classical', 'country', 'disco', 'hiphop', 'jazz', 'metal', 'pop', 'reggae', 'rock']
 SR=16000
 DURATION=10
@@ -25,6 +28,7 @@ STEP_SAMPLES = SR * HOP_DURATION
 #Caching the heavy model to avoid importing the model for every prediction
 @st.cache_resource
 def load_model_and_extractor():
+    best_weights = hf_hub_download(repo_id=HF_REPO_ID, filename=FILENAME)
     # Loading the same AST extractor
     ast_extractor = AutoFeatureExtractor.from_pretrained(AST_VER)
 
